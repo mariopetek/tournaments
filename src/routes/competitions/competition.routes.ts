@@ -9,6 +9,7 @@ router.post('/', requiresAuth(), (req, res) => {})
 
 router.get('/new', requiresAuth(), (req, res) => {
     res.render('competitions/newCompetition', {
+        name: 'newCompetition',
         title: 'Natjecanja | Novo',
         isAuthenticated: req.oidc.isAuthenticated(),
         user: req.oidc.user
@@ -17,6 +18,7 @@ router.get('/new', requiresAuth(), (req, res) => {
 
 router.get('/current', requiresAuth(), (req, res) => {
     res.render('competitions/currentCompetition', {
+        name: 'currentCompetition',
         title: 'Natjecanja | Trenutno',
         isAuthenticated: req.oidc.isAuthenticated(),
         user: req.oidc.user
@@ -25,6 +27,7 @@ router.get('/current', requiresAuth(), (req, res) => {
 
 router.get('/current/results', requiresAuth(), (req, res) => {
     res.render('competitions/currentCompetitionResults', {
+        name: 'currentCompetitionResults',
         title: 'Natjecanja | Rezultati',
         isAuthenticated: req.oidc.isAuthenticated(),
         user: req.oidc.user

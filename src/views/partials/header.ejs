@@ -1,24 +1,49 @@
 <nav>
     <% if(!isAuthenticated) { %>
     <ul>
-        <li><a href="/login">Prijava</a></li>
+        <li>
+            <a class="auth-button" href="/login">Prijava</a>
+        </li>
+    </ul>
+    <ul>
+        <li>
+            <a href="https://github.com/mariopetek/web2-lab1" target="_blank">
+                <img class="github-logo" src="../../images/github-mark.svg" alt="github">
+            </a>
+        </li>
     </ul>
     <% } else { %>
     <ul>
-        <li><a href="/">Početna</a></li>
-        <li><a href="/competitions/new">Novo natjecanje</a></li>
         <li>
-            <a href="/competitions/current">Trenutno natjecanje</a>
+            <a <% if(name === 'index') { %> class="link current" <% } else { %>class="link"<% } %> href="/" >
+                Početna
+            </a>
         </li>
+        <li><div class="separator"></div></li>
         <li>
-            <a href="/competitions/current/results">Rezultati</a>
+            <a <% if(name === 'newCompetition') { %> class="link current" <% } else { %>class="link"<% } %> href="/competitions/new">
+                Novo natjecanje
+            </a>
+        </li>
+        <li><div class="separator"></div></li>
+        <li>
+            <a <% if(name === 'currentCompetition') { %> class="link current" <% } else { %>class="link"<% } %> href="/competitions/current">
+                Trenutno natjecanje
+            </a>
+        </li>
+        <li><div class="separator"></div></li>
+        <li>
+            <a <% if(name === 'currentCompetitionResults') { %> class="link current" <% } else { %>class="link"<% } %> href="/competitions/current/results">
+                Rezultati
+            </a>
         </li>
     </ul>
     <ul>
         <% if(user) { %>
+        <li><img class="user-picture" src="<%= user.picture %>" alt=""></li>
         <li><%= user.name %></li>
         <% } %>
-        <li><a href="/logout">Odjava</a></li>
+        <li><a class="auth-button" href="/logout">Odjava</a></li>
     </ul>
     <% } %>
 </nav>

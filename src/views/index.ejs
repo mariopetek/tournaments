@@ -4,10 +4,29 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title><%= title %></title>
+        <link rel="stylesheet" href="styles/global.css" />
+        <link rel="stylesheet" href="styles/header.css" />
         <link rel="stylesheet" href="styles/index.css" />
+        <link rel="icon" type="image/x-icon" href="../images/trophy.svg" />
     </head>
     <body>
-        <%- include('./partials/header.ejs') %>
-        <h1>Početna</h1>
+        <%- include('./partials/header.ejs') %> <% if(!isAuthenticated) { %>
+        <div class="wrapper">
+            <div class="image-container">
+                <img src="../images/trophy.svg" alt="trophy" />
+                <div class="text-container">
+                    <h2>Jednokružni sustav natjecanja</h2>
+                    <p>
+                        Definiranje i praćenje natjecanja koja se odvijaju po
+                        jednokružnom sustavu natjecanja.
+                    </p>
+                    <p>
+                        Prijavite se kako bi mogli iskoristiti sve značajke
+                        sustava.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <% } %>
     </body>
 </html>

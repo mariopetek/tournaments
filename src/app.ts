@@ -8,6 +8,8 @@ import dotenv from 'dotenv'
 import indexRouter from './routes/index.routes'
 import competitionRouter from './routes/competitions/competition.routes'
 
+import initDatabase from './database/init'
+
 dotenv.config()
 
 const app = express()
@@ -46,6 +48,8 @@ app.get('/sign-up', (req, res) => {
 
 app.use('/', indexRouter)
 app.use('/competitions', competitionRouter)
+
+initDatabase()
 
 https
     .createServer(

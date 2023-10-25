@@ -1,0 +1,62 @@
+nav {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 15px;
+    outline: 1px solid #dbdbdb;
+}
+ul {
+    display: flex;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+li {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+}
+li > a {
+    display: flex;
+    align-items: center;
+}
+.github-logo {
+    height: 35px;
+    transition: all 0.2s ease;
+}
+.github-logo:hover {
+    opacity: 0.6;
+}
+.link {
+    color: black;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.link:hover {
+    opacity: 0.6;
+}
+.auth-button {
+    outline: 1px solid #dbdbdb;
+    padding: 8px 20px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    color: black;
+    font-weight: 400;
+}
+.auth-button:hover {
+    background-color: #ebebeb;
+    outline-color: #cccbcb;
+}
+.separator {
+    background-color: black;
+    height: 20px;
+    width: 1px;
+}
+.current {
+    text-decoration: 2px underline;
+}
+.user-picture {
+    height: 35px;
+    border-radius: 50%;
+}
