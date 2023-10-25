@@ -6,7 +6,8 @@ import { auth } from 'express-openid-connect'
 import dotenv from 'dotenv'
 
 import indexRouter from './routes/index.routes'
-import competitionRouter from './routes/competitions/competition.routes'
+import competitionRouter from './routes/competition.routes'
+import resultRouter from './routes/result.routes'
 
 import initDatabase from './database/init'
 
@@ -17,6 +18,7 @@ const app = express()
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.urlencoded({ extended: true }))
 
 const port = 3000
 
@@ -48,6 +50,7 @@ app.get('/sign-up', (req, res) => {
 
 app.use('/', indexRouter)
 app.use('/competitions', competitionRouter)
+app.use('/results', resultRouter)
 
 initDatabase()
 

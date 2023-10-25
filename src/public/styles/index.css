@@ -2,11 +2,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 50px;
 }
-
 .image-container {
     display: flex;
-    padding: 50px;
     gap: 20px;
     align-items: center;
 }
@@ -28,4 +27,74 @@
     font-size: 1.2rem;
     font-weight: 300;
     color: #4e4e4e;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    outline: 1px solid #dbdbdb;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 500px;
+}
+.competition-name {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.competitors {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.scoring-system {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.scoring-inputs {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.scoring-inputs > div {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+.scoring-inputs > div > label {
+    text-align: center;
+}
+.scoring-inputs > div > input {
+    text-align: center;
+}
+input,
+textarea {
+    border: none;
+    outline: 1px solid #dbdbdb;
+    padding: 10px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    resize: vertical;
+}
+input:hover,
+textarea:hover {
+    outline-color: #4e4e4e;
+}
+input:focus,
+textarea:focus {
+    outline-color: black;
+}
+button {
+    border: none;
+    color: white;
+    background-color: black;
+    padding: 10px 20px;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+}
+button:hover {
+    opacity: 0.6;
+    cursor: pointer;
 }

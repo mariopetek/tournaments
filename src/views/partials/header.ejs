@@ -21,19 +21,13 @@
         </li>
         <li><div class="separator"></div></li>
         <li>
-            <a <% if(name === 'newCompetition') { %> class="link current" <% } else { %>class="link"<% } %> href="/competitions/new">
-                Novo natjecanje
+            <a <% if(name === 'competitions') { %> class="link current" <% } else { %>class="link"<% } %> href="/competitions">
+                Natjecanja
             </a>
         </li>
         <li><div class="separator"></div></li>
         <li>
-            <a <% if(name === 'currentCompetition') { %> class="link current" <% } else { %>class="link"<% } %> href="/competitions/current">
-                Trenutno natjecanje
-            </a>
-        </li>
-        <li><div class="separator"></div></li>
-        <li>
-            <a <% if(name === 'currentCompetitionResults') { %> class="link current" <% } else { %>class="link"<% } %> href="/competitions/current/results">
+            <a <% if(name === 'results') { %> class="link current" <% } else { %>class="link"<% } %> href="/results">
                 Rezultati
             </a>
         </li>
