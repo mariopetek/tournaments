@@ -1,17 +1,43 @@
 import express from 'express'
 import { requiresAuth } from 'express-openid-connect'
 
-import db from '../database/db'
+import db from '../db'
 
 const router = express.Router()
 
-router.get('/', requiresAuth(), (req, res) => {
+const responseObj = {
+    name: 'competitions',
+    title: 'Natjecanja'
+}
+
+router.get('/', requiresAuth(), async (req, res) => {
+    let competitions
+    try {
+        competitions = (
+            await db.query(
+                `select * from competition where user_id = '${req.oidc.user?.sub}'`
+            )
+        ).rows
+        console.log(competitions)
+    } catch (err) {
+        console.log(err)
+    }
     res.render('competitions', {
-        name: 'competitions',
-        title: 'Natjecanja',
-        isAuthenticated: req.oidc.isAuthenticated(),
-        user: req.oidc.user
+        ...responseObj,
+        user: req.oidc.user,
+        competitions
     })
 })
+
+router
+    .route('/:competitionId')
+    .get(requiresAuth(), async (req, res) => {
+        res.render('competition', {
+            ...responseObj,
+            user: req.oidc.user,
+            id: req.params.competitionId
+        })
+    })
+    .post(requiresAuth(), async (req, res) => {})
 
 export default router

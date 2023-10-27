@@ -3,6 +3,9 @@ nav {
     justify-content: space-around;
     padding: 20px 15px;
     outline: 1px solid #dbdbdb;
+    position: sticky;
+    top: 0;
+    background-color: white;
 }
 ul {
     display: flex;
@@ -16,10 +19,6 @@ li {
     display: flex;
     align-items: center;
 }
-li > a {
-    display: flex;
-    align-items: center;
-}
 .github-logo {
     height: 35px;
     transition: all 0.2s ease;
@@ -28,12 +27,17 @@ li > a {
     opacity: 0.6;
 }
 .link {
-    color: black;
+    display: flex;
+    align-items: center;
     text-decoration: none;
     transition: all 0.2s ease;
+    font-weight: 400;
+    color: #4e4e4e;
+    opacity: 0.8;
 }
 .link:hover {
-    opacity: 0.6;
+    color: black;
+    opacity: 1;
 }
 .auth-button {
     outline: 1px solid #dbdbdb;
@@ -54,7 +58,9 @@ li > a {
     width: 1px;
 }
 .current {
-    text-decoration: 2px underline;
+    color: black;
+    text-decoration: 1.5px underline;
+    opacity: 1;
 }
 .user-picture {
     height: 35px;

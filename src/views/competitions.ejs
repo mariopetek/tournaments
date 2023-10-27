@@ -6,9 +6,15 @@
         <title><%= title %></title>
         <link rel="stylesheet" href="/styles/global.css" />
         <link rel="stylesheet" href="/styles/header.css" />
+        <link rel="icon" type="image/x-icon" href="../images/trophy.svg" />
     </head>
     <body>
         <%- include('./partials/header.ejs') %>
         <h1>Natjecanja</h1>
+        <% for(competition of competitions) { %>
+        <a href="/competitions/<%=competition.competition_id%>"
+            ><%=competition.competition_name%></a
+        >
+        <% } %>
     </body>
 </html>

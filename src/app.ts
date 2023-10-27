@@ -9,8 +9,6 @@ import indexRouter from './routes/index.routes'
 import competitionRouter from './routes/competition.routes'
 import resultRouter from './routes/result.routes'
 
-import initDatabase from './database/init'
-
 dotenv.config()
 
 const app = express()
@@ -34,25 +32,12 @@ const config = {
         response_type: 'code'
     }
 }
-
 // auth router attaches /login, /logout, and /callback routes to the baseURL.
 app.use(auth(config))
-
-/*
-app.get('/sign-up', (req, res) => {
-    res.oidc.login({
-        returnTo: '/',
-        authorizationParams: {
-            screen_hint: 'signup'
-        }
-    })
-})*/
 
 app.use('/', indexRouter)
 app.use('/competitions', competitionRouter)
 app.use('/results', resultRouter)
-
-initDatabase()
 
 https
     .createServer(

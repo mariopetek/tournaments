@@ -1,0 +1,56 @@
+<form action="" method="post">
+    <h2>Novo natjecanje</h2>
+    <div class="competition-name">
+        <label for="competitionName">Naziv natjecanja</label>
+        <input
+            type="text"
+            name="competitionName"
+            placeholder="Unesite naziv natjecanja"
+            value="<%= data?.competitionName || '' %>"
+            required
+        />
+    </div>
+    <div class="competitors">
+        <label for="competitors">Natjecatelji</label>
+        <textarea
+            name="competitors"
+            placeholder="Unesite natjecatelje"
+            required
+        >
+<%= data?.competitors || '' %></textarea
+        >
+    </div>
+    <div class="scoring-system">
+        <label for="scoringSystem">Sustav bodovanja</label>
+        <div class="scoring-inputs">
+            <div>
+                <label for="win">Pobjeda</label>
+                <input
+                    type="number"
+                    name="win"
+                    value="<%= data?.win || '0' %>"
+                    required
+                />
+            </div>
+            <div>
+                <label for="draw">Remi</label>
+                <input
+                    type="number"
+                    name="draw"
+                    value="<%= data?.draw || '0' %>"
+                    required
+                />
+            </div>
+            <div>
+                <label for="">Poraz</label>
+                <input
+                    type="number"
+                    name="loss"
+                    value="<%= data?.loss || '0' %>"
+                    required
+                />
+            </div>
+        </div>
+    </div>
+    <button type="submit">Stvori</button>
+</form>

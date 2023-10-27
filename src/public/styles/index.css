@@ -1,4 +1,4 @@
-.wrapper {
+.home-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -28,6 +28,14 @@
     font-weight: 300;
     color: #4e4e4e;
 }
+
+.form-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 50px;
+}
 form {
     display: flex;
     flex-direction: column;
@@ -36,18 +44,14 @@ form {
     outline: 1px solid #dbdbdb;
     border-radius: 10px;
     padding: 20px;
+    width: 100%;
     max-width: 500px;
 }
-.competition-name {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+form > h2 {
+    margin-top: 0;
 }
-.competitors {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
+.competition-name,
+.competitors,
 .scoring-system {
     display: flex;
     flex-direction: column;
@@ -63,10 +67,14 @@ form {
     flex-direction: column;
     width: 30%;
 }
-.scoring-inputs > div > label {
+.scoring-inputs label {
     text-align: center;
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: #4e4e4e;
+    opacity: 0.8;
 }
-.scoring-inputs > div > input {
+.scoring-inputs input {
     text-align: center;
 }
 input,
@@ -75,8 +83,13 @@ textarea {
     outline: 1px solid #dbdbdb;
     padding: 10px;
     border-radius: 8px;
-    transition: all 0.2s ease;
+    transition: outline 0.2s ease;
     resize: vertical;
+    font-weight: 400;
+}
+input::placeholder,
+textarea::placeholder {
+    opacity: 0.6;
 }
 input:hover,
 textarea:hover {
@@ -93,6 +106,7 @@ button {
     padding: 10px 20px;
     transition: all 0.2s ease;
     border-radius: 8px;
+    margin-top: 20px;
 }
 button:hover {
     opacity: 0.6;
