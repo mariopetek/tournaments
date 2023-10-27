@@ -11,23 +11,23 @@ const responseObj = {
 }
 
 router.get('/', requiresAuth(), async (req, res) => {
-    let competitions
     try {
-        competitions = (
+        const competitions = (
             await db.query(
                 `select * from competition where user_id = '${req.oidc.user?.sub}' order by created_at desc`
             )
         ).rows
         console.log(competitions)
+
+        res.render('competitions', {
+            ...responseObj,
+            user: req.oidc.user,
+            competitions
+        })
     } catch (err) {
         console.log(err)
         return
     }
-    res.render('competitions', {
-        ...responseObj,
-        user: req.oidc.user,
-        competitions
-    })
 })
 
 router
@@ -56,17 +56,36 @@ router.post(
             console.log(err)
             return
         }
-
         res.redirect('/competitions')
     })
 )
 
 router.get('/result/:competitionId', requiresAuth(), async (req, res) => {
-    res.render('result', {
-        ...responseObj,
-        user: req.oidc.user,
-        id: req.params.competitionId
-    })
+    try {
+        const competition = (
+            await db.query(
+                `select * from competition where competition_id = ${req.params.competitionId}`
+            )
+        ).rows[0]
+        if (competition.user_id !== req.oidc.user?.sub) {
+            res.status(403)
+            return
+        }
+        const competitors = (
+            await db.query(
+                `select * from competitor where competition_id = ${req.params.competitionId} order by points, competitor_name`
+            )
+        ).rows
+
+        res.render('result', {
+            ...responseObj,
+            user: req.oidc.user,
+            competitionName: competition.competition_name,
+            competitors
+        })
+    } catch (err) {
+        console.log(err)
+    }
 })
 
 export default router

@@ -3,13 +3,40 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/x-icon" href="/images/trophy.svg" />
         <link rel="stylesheet" href="/styles/global.css" />
         <link rel="stylesheet" href="/styles/header.css" />
-        <title>Document</title>
-        <link rel="icon" type="image/x-icon" href="../images/trophy.svg" />
+        <link rel="stylesheet" href="/styles/result.css" />
+        <title><%= title %></title>
     </head>
     <body>
         <%- include('./partials/header.ejs') %>
-        <h1><%= id %></h1>
+        <h1>Rezultati natjecanja: <%= competitionName %></h1>
+        <div class="wrapper">
+            <table>
+                <tr class="heading">
+                    <th class="bottom-border right-border">Pozicija</th>
+                    <th class="bottom-border right-border">Natjecatelj</th>
+                    <th class="bottom-border">Bodovi</th>
+                </tr>
+                <% for(let i = 0; i < competitors.length; i++) { %>
+                <tr <% if(i % 2 ==0) { %>class="even"<% } %>>
+                    <td <% if(i < competitors.length - 1) { %>
+                        class="bottom-border right-border"<% } else {
+                        %>class="right-border"<% } %>><%=i + 1%>.
+                    </td>
+                    <td <% if(i < competitors.length - 1) { %>
+                        class="bottom-border right-border"<% } else {
+                        %>class="right-border"<% } %>> <%=
+                        competitors[i].competitor_name %>
+                    </td>
+                    <td <% if(i < competitors.length - 1) { %>
+                        class="bottom-border"<% } %>><%= competitors[i].points
+                        %>
+                    </td>
+                </tr>
+                <% } %>
+            </table>
+        </div>
     </body>
 </html>
