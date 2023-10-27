@@ -21,6 +21,7 @@ router.get('/', requiresAuth(), async (req, res) => {
         console.log(competitions)
     } catch (err) {
         console.log(err)
+        return
     }
     res.render('competitions', {
         ...responseObj,
@@ -40,7 +41,27 @@ router
     })
     .post(requiresAuth(), async (req, res) => {})
 
-router.get('/result/:competitionId', requiresAuth(), (req, res) => {
+router.post(
+    '/delete/:competitionId',
+    (requiresAuth(),
+    async (req, res) => {
+        try {
+            await db.query(
+                `delete from competitor where competition_id = ${req.params.competitionId}`
+            )
+            await db.query(
+                `delete from competition where competition_id = ${req.params.competitionId}`
+            )
+        } catch (err) {
+            console.log(err)
+            return
+        }
+
+        res.redirect('/competitions')
+    })
+)
+
+router.get('/result/:competitionId', requiresAuth(), async (req, res) => {
     res.render('result', {
         ...responseObj,
         user: req.oidc.user,

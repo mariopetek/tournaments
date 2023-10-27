@@ -13,7 +13,12 @@
         <%- include('./partials/header.ejs') %>
         <h1>Natjecanja</h1>
         <div class="wrapper">
-            <% for(competition of competitions) { %>
+            <% if(competitions.length == 0) { %>
+            <p class="no-competitions">
+                Trenutno nemate stvorenih natjecanja. Natjecanje možete stvoriti
+                <a href="/">ovdje</a>.
+            </p>
+            <% } else { %> <% for(competition of competitions) { %>
             <div class="competition">
                 <div class="name-section">
                     <label for="competitionName"
@@ -38,10 +43,17 @@
                             >Rezultati</a
                         >
                     </div>
-                    <button><img src="/images/bin.svg" alt="delete" /></button>
+                    <form
+                        action="/competitions/delete/<%=competition.competition_id%>"
+                        method="post"
+                    >
+                        <button type="submit" id="deleteButton">
+                            <img src="/images/bin.svg" alt="delete" />
+                        </button>
+                    </form>
                 </div>
             </div>
-            <% } %>
+            <% } %> <% } %>
         </div>
     </body>
 </html>
