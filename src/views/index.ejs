@@ -16,9 +16,9 @@
         <div class="form-wrapper">
             <%- include('./partials/newCompetitionForm.ejs') %> <% if(error) {
             %>
-            <p><%= error %></p>
+            <p class="error"><%= error %></p>
             <% } else if(success) { %>
-            <p><%= success %></p>
+            <p class="success"><%= success %></p>
             <% } %> <% } %>
         </div>
     </body>

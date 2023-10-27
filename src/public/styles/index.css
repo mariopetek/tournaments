@@ -86,6 +86,7 @@ textarea {
     transition: outline 0.2s ease;
     resize: vertical;
     font-weight: 400;
+    min-height: 20px;
 }
 input::placeholder,
 textarea::placeholder {
@@ -107,8 +108,17 @@ button {
     transition: all 0.2s ease;
     border-radius: 8px;
     margin-top: 20px;
+    font-weight: 500;
 }
 button:hover {
     opacity: 0.6;
     cursor: pointer;
+}
+.error {
+    font-weight: 400;
+    color: red;
+}
+.success {
+    font-weight: 400;
+    color: #00e000;
 }

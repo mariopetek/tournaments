@@ -15,7 +15,7 @@ router.get('/', requiresAuth(), async (req, res) => {
     try {
         competitions = (
             await db.query(
-                `select * from competition where user_id = '${req.oidc.user?.sub}'`
+                `select * from competition where user_id = '${req.oidc.user?.sub}' order by created_at desc`
             )
         ).rows
         console.log(competitions)
@@ -39,5 +39,13 @@ router
         })
     })
     .post(requiresAuth(), async (req, res) => {})
+
+router.get('/result/:competitionId', requiresAuth(), (req, res) => {
+    res.render('result', {
+        ...responseObj,
+        user: req.oidc.user,
+        id: req.params.competitionId
+    })
+})
 
 export default router

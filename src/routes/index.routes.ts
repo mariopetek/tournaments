@@ -1,5 +1,6 @@
 import express from 'express'
 import { requiresAuth } from 'express-openid-connect'
+import moment from 'moment'
 
 import db from '../db'
 
@@ -41,7 +42,9 @@ router.post('/', requiresAuth(), async (req, res) => {
     try {
         const competitionId = (
             await db.query(
-                `insert into competition (competition_name, scoring_system, user_id) values ('${competitionName}','${win}/${draw}/${loss}', '${req.oidc.user?.sub}') returning *`
+                `insert into competition (competition_name, scoring_system, user_id, created_at) values ('${competitionName}','${win}/${draw}/${loss}', '${
+                    req.oidc.user?.sub
+                }', '${moment().format()}') returning *`
             )
         )?.rows[0].competition_id
         for (const competitor of competitorsArr) {

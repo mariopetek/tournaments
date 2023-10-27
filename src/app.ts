@@ -7,7 +7,6 @@ import dotenv from 'dotenv'
 
 import indexRouter from './routes/index.routes'
 import competitionRouter from './routes/competition.routes'
-import resultRouter from './routes/result.routes'
 
 dotenv.config()
 
@@ -37,7 +36,6 @@ app.use(auth(config))
 
 app.use('/', indexRouter)
 app.use('/competitions', competitionRouter)
-app.use('/results', resultRouter)
 
 https
     .createServer(

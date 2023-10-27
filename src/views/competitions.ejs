@@ -6,15 +6,42 @@
         <title><%= title %></title>
         <link rel="stylesheet" href="/styles/global.css" />
         <link rel="stylesheet" href="/styles/header.css" />
+        <link rel="stylesheet" href="/styles/competitions.css" />
         <link rel="icon" type="image/x-icon" href="../images/trophy.svg" />
     </head>
     <body>
         <%- include('./partials/header.ejs') %>
         <h1>Natjecanja</h1>
-        <% for(competition of competitions) { %>
-        <a href="/competitions/<%=competition.competition_id%>"
-            ><%=competition.competition_name%></a
-        >
-        <% } %>
+        <div class="wrapper">
+            <% for(competition of competitions) { %>
+            <div class="competition">
+                <div class="name-section">
+                    <label for="competitionName"
+                        >Stvoreno: <%= `${new
+                        Date(competition.created_at).getDate()}.${new
+                        Date(competition.created_at).getMonth().toString()}.${new
+                        Date(competition.created_at).getFullYear()}. ${new
+                        Date(competition.created_at).getHours()}:${new
+                        Date(competition.created_at).getMinutes()}` %></label
+                    >
+                    <h3 name="competitionName">
+                        <%= competition.competition_name %>
+                    </h3>
+                </div>
+                <div class="button-section">
+                    <div class="links-container">
+                        <a href="/competitions/<%=competition.competition_id%>"
+                            >Upravljanje</a
+                        >
+                        <a
+                            href="/competitions/result/<%=competition.competition_id%>"
+                            >Rezultati</a
+                        >
+                    </div>
+                    <button><img src="/images/bin.svg" alt="delete" /></button>
+                </div>
+            </div>
+            <% } %>
+        </div>
     </body>
 </html>
