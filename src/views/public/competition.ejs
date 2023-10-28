@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/x-icon" href="/images/trophy.svg" />
+        <link rel="stylesheet" href="/styles/global.css" />
+        <link rel="stylesheet" href="/styles/competition.css" />
+        <link rel="stylesheet" href="/styles/publicCompetition.css" />
+        <title><%= title %></title>
+    </head>
+    <body>
+        <h1><%= competition.competition_name %></h1>
+        <div class="wrapper">
+            <p class="scoring-system">
+                Sustav bodovanja: <%=competition.scoring_system%>
+            </p>
+            <% for(const [key, round] of rounds.entries()) { %>
+            <div class="round">
+                <h2><%= key %>. kolo</h2>
+                <div class="line-separator"></div>
+                <% for(let i = 0; i < round.length; i++) { %> <%
+                if(winners.get(key)[i] !== null) { %>
+                <p class="description">Odigrano</p>
+                <% } else { %>
+                <p class="description">Nije odigrano</p>
+                <% } %>
+
+                <div class="match">
+                    <div>
+                        <div class="competitor">
+                            <p class="competitor-name">
+                                <%= round[i][0].competitor_name %>
+                                <%if(winners.get(key)[i] ===
+                                round[i][0].competitor_id) { %>
+                                <span class="winner-text">&lt pobjednik</span>
+                                <% } %>
+                            </p>
+                        </div>
+                        <div class="competitor">
+                            <p class="competitor-name">
+                                <%= round[i][1].competitor_name %>
+                                <%if(winners.get(key)[i] ===
+                                round[i][1].competitor_id) { %>
+                                <span class="winner-text">&lt pobjednik</span>
+                                <% } %>
+                            </p>
+                        </div>
+                    </div>
+                    <%if(winners.get(key)[i] === -1) { %>
+                    <p class="draw-text">neriješeno</p>
+                    <% } %>
+                </div>
+                <% if(i < round.length - 1) { %>
+                <div class="line-separator"></div>
+                <% } %> <% } %>
+            </div>
+            <% } %>
+        </div>
+    </body>
+</html>

@@ -5,16 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/x-icon" href="/images/trophy.svg" />
         <link rel="stylesheet" href="/styles/global.css" />
-        <link rel="stylesheet" href="/styles/header.css" />
         <link rel="stylesheet" href="/styles/leaderboard.css" />
         <title><%= title %></title>
     </head>
     <body>
-        <%- include('./partials/header.ejs') %>
         <h1><%= competition.competition_name %></h1>
         <div class="wrapper">
-            <a target="_blank" class="public-url" href="/public/competitions/leaderboard/<%=competition.competition_id%>">https://localhost:3000/public/competitions/leaderboard/<%=competition.competition_id%></a>
-            <a class="competition-button" href="/competitions/<%=competition.competition_id%>" title="Upravljanje natjecanjem">Upravljanje</a>
             <h2>Poredak</h2>
             <table>
                 <tr class="heading">
