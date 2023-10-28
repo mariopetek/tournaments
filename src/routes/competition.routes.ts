@@ -33,10 +33,26 @@ router.get('/', requiresAuth(), async (req, res) => {
 router
     .route('/:competitionId')
     .get(requiresAuth(), async (req, res) => {
+        const competition = (
+            await db.query(
+                `select * from competition where competition_id = ${req.params.competitionId}`
+            )
+        ).rows[0]
+        if (competition.user_id !== req.oidc.user?.sub) {
+            res.sendStatus(403)
+            return
+        }
+        const competitors = (
+            await db.query(
+                `select * from competitor where competition_id = ${req.params.competitionId} order by points, competitor_name`
+            )
+        ).rows
+
         res.render('competition', {
             ...responseObj,
             user: req.oidc.user,
-            id: req.params.competitionId
+            competitionName: competition.competition_name,
+            competitors
         })
     })
     .post(requiresAuth(), async (req, res) => {})
@@ -46,6 +62,9 @@ router.post(
     (requiresAuth(),
     async (req, res) => {
         try {
+            await db.query(
+                `delete from competition_round where competitor_id_1 = any(select competitor_id from competitor where competition_id = ${req.params.competitionId});`
+            )
             await db.query(
                 `delete from competitor where competition_id = ${req.params.competitionId}`
             )
@@ -68,7 +87,7 @@ router.get('/result/:competitionId', requiresAuth(), async (req, res) => {
             )
         ).rows[0]
         if (competition.user_id !== req.oidc.user?.sub) {
-            res.status(403)
+            res.sendStatus(403)
             return
         }
         const competitors = (

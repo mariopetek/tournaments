@@ -6,10 +6,14 @@
         <link rel="icon" type="image/x-icon" href="/images/trophy.svg" />
         <link rel="stylesheet" href="/styles/global.css" />
         <link rel="stylesheet" href="/styles/header.css" />
+        <link rel="stylesheet" href="/styles/competition.css" />
         <title><%= title %></title>
     </head>
     <body>
         <%- include('./partials/header.ejs') %>
-        <h1><%= id %></h1>
+        <h1>Upravljanje natjcanjem: <%= competitionName %></h1>
+        <% for(let i = 0; i < competitors.length - 1; i++) { %>
+        <div>Kolo <%= i + 1 %>:</div>
+        <% } %>
     </body>
 </html>
