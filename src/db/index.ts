@@ -14,10 +14,6 @@ const pool = new Pool({
 export default {
     query: async (sql: string) => {
         const result = await pool.query(sql)
-        console.log('Executed query: ', {
-            sql,
-            rows: result.rowCount
-        })
         return result
     }
 }
