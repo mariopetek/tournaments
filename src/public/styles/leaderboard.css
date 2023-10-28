@@ -1,0 +1,62 @@
+h1 {
+    text-align: center;
+}
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 50px;
+    margin-top: 0;
+}
+.competition-button {
+    outline: 1px solid #dbdbdb;
+    padding: 8px 20px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    color: black;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+.competition-button:hover {
+    background-color: #ebebeb;
+    outline-color: #cccbcb;
+}
+h2 {
+    margin-top: 0;
+}
+table {
+    outline: 1px solid #e0e0e0;
+    border-radius: 10px;
+    border-collapse: collapse;
+    overflow: hidden;
+    width: 100%;
+    max-width: 500px;
+}
+th,
+td {
+    padding: 10px 20px;
+    text-align: center;
+    font-weight: 400;
+}
+th {
+    padding: 10px;
+}
+.heading {
+    background-color: #ebebeb;
+}
+.heading > th {
+    color: black;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+.bottom-border {
+    border-bottom: 1px solid #e0e0e0;
+}
+.right-border {
+    border-right: 1px solid #e0e0e0;
+}
+.odd {
+    background-color: #fafafa;
+}

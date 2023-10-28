@@ -37,8 +37,8 @@ h1 {
     align-self: flex-start;
 }
 .competition:hover {
-    background-color: #ebebeb;
-    outline-color: #cccbcb;
+    background-color: #fafafa;
+    outline-color: #e0e0e0;
 }
 .name-section > label {
     font-weight: 400;

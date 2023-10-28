@@ -11,9 +11,67 @@
     </head>
     <body>
         <%- include('./partials/header.ejs') %>
-        <h1>Upravljanje natjcanjem: <%= competitionName %></h1>
-        <% for(let i = 0; i < competitors.length - 1; i++) { %>
-        <div>Kolo <%= i + 1 %>:</div>
-        <% } %>
+        <h1><%= competition.competition_name %></h1>
+        <div class="wrapper">
+            <p class="scoring-system">Sustav bodovanja: <%=competition.scoring_system%></p>
+            <a class="result-button" href="/competitions/leaderboard/<%=competition.competition_id%>" title="Poredak na natjecanju">Poredak</a>
+            <% for(const [key, round] of rounds.entries()) { %>
+            <div class="round">
+                <h2><%= key %>. kolo</h2>
+                <div class="line-separator"></div>
+                <% for(let i = 0; i < round.length; i++) { %>
+                    <% if(winners.get(key)[i] !== null) { %>
+                        <p class="description">Odigrano</p>
+                    <% } else { %>
+                        <p class="description">Odaberite pobjednika</p>
+                    <% } %>
+                    <form action="/competitions/<%=competition.competition_id%>/<%=round[i][0].competitor_id%>_<%=round[i][1].competitor_id%>" method="post">
+                        <div>
+                            <div class="competitor">
+                                <input
+                                    id="<%=round[i][0].competitor_id%>"
+                                    type="radio"
+                                    name="<%=round[i][0].competitor_id%>_<%=round[i][1].competitor_id%>"
+                                    value="<%=round[i][0].competitor_id%>"
+                                    <%if(winners.get(key)[i] !== null) {%>disabled<% } %>
+                                    <%if(winners.get(key)[i] === round[i][0].competitor_id) {%>checked<% } %>
+
+                                />
+                                <label for="<%=round[i][0].competitor_id%>"
+                                    ><%= round[i][0].competitor_name %></label
+                                >
+                            </div>
+                            <div class="competitor">
+                                <input
+                                    id="<%=round[i][1].competitor_id%>"
+                                    type="radio"
+                                    name="<%=round[i][0].competitor_id%>_<%=round[i][1].competitor_id%>"
+                                    value="<%=round[i][1].competitor_id%>"
+                                    <%if(winners.get(key)[i] !== null) {%>disabled<% } %>
+                                    <%if(winners.get(key)[i] === round[i][1].competitor_id) {%>checked<% } %>
+
+                                />
+                                <label for="<%=round[i][1].competitor_id%>"
+                                    ><%= round[i][1].competitor_name %></label
+                                >
+                            </div>
+                            <input
+                                id="result<%=key%><%=i%>"
+                                type="radio"
+                                name="<%=round[i][0].competitor_id%>_<%=round[i][1].competitor_id%>"
+                                value="-1"
+                                <%if(winners.get(key)[i] !== null) {%>disabled<% } %>
+                                <%if(winners.get(key)[i] === -1) {%>checked<% } %>
+                            />
+                            <label class="draw" for="result<%=key%><%=i%>">neriješeno</label>
+                        </div>
+                        <button type="submit"<%if(winners.get(key)[i] !== null) {%>disabled <% } else { %>title="Unesi"<% } %>>Unesi</button>
+                    </form>
+                <% if(i < round.length - 1) { %>
+                <div class="line-separator"></div>
+                <% } %> <% } %>
+            </div>
+            <% } %>
+        </div>
     </body>
 </html>

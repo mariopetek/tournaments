@@ -24,7 +24,7 @@
                     <label for="competitionName"
                         >Stvoreno: <%= `${new
                         Date(competition.created_at).getDate()}.${new
-                        Date(competition.created_at).getMonth().toString()}.${new
+                        Date(competition.created_at).getMonth() + 1}.${new
                         Date(competition.created_at).getFullYear()}. ${new
                         Date(competition.created_at).getHours()}:${new
                         Date(competition.created_at).getMinutes()}` %></label
@@ -35,19 +35,26 @@
                 </div>
                 <div class="button-section">
                     <div class="links-container">
-                        <a href="/competitions/<%=competition.competition_id%>"
+                        <a
+                            href="/competitions/<%=competition.competition_id%>"
+                            title="Upravljanje natjecanjem"
                             >Upravljanje</a
                         >
                         <a
-                            href="/competitions/result/<%=competition.competition_id%>"
-                            >Rezultati</a
+                            href="/competitions/leaderboard/<%=competition.competition_id%>"
+                            title="Poredak na natjecanju"
+                            >Poredak</a
                         >
                     </div>
                     <form
                         action="/competitions/delete/<%=competition.competition_id%>"
                         method="post"
                     >
-                        <button type="submit" id="deleteButton">
+                        <button
+                            type="submit"
+                            id="deleteButton"
+                            title="Brisanje natjecanja"
+                        >
                             <img src="/images/bin.svg" alt="delete" />
                         </button>
                     </form>

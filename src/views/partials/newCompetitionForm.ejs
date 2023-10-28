@@ -5,17 +5,19 @@
         <input
             type="text"
             name="competitionName"
-            placeholder="Unesite naziv natjecanja"
+            placeholder="Naziv natjecanja"
             value="<%= data?.competitionName || '' %>"
             required
+            title="Naziv natjecanja"
         />
     </div>
     <div class="competitors">
         <label for="competitors">Natjecatelji</label>
         <textarea
             name="competitors"
-            placeholder="Unesite natjecatelje"
+            placeholder="Natjecatelji (Moguće je unijeti 4, 6 ili 8 natjecatelja odvojenih znakom ; ili novim redom)"
             required
+            title="Natjecatelji"
         >
 <%= data?.competitors || '' %></textarea
         >
@@ -30,6 +32,7 @@
                     name="win"
                     value="<%= data?.win || '0' %>"
                     required
+                    title="Bodovanje pobjede"
                 />
             </div>
             <div>
@@ -39,6 +42,7 @@
                     name="draw"
                     value="<%= data?.draw || '0' %>"
                     required
+                    title="Bodovanje remija"
                 />
             </div>
             <div>
@@ -48,9 +52,10 @@
                     name="loss"
                     value="<%= data?.loss || '0' %>"
                     required
+                    title="Bodovanje poraza"
                 />
             </div>
         </div>
     </div>
-    <button type="submit">Stvori</button>
+    <button type="submit" title="Stvori">Stvori</button>
 </form>

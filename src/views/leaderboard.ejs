@@ -6,13 +6,15 @@
         <link rel="icon" type="image/x-icon" href="/images/trophy.svg" />
         <link rel="stylesheet" href="/styles/global.css" />
         <link rel="stylesheet" href="/styles/header.css" />
-        <link rel="stylesheet" href="/styles/result.css" />
+        <link rel="stylesheet" href="/styles/leaderboard.css" />
         <title><%= title %></title>
     </head>
     <body>
         <%- include('./partials/header.ejs') %>
-        <h1>Rezultati natjecanja: <%= competitionName %></h1>
+        <h1><%= competition.competition_name %></h1>
         <div class="wrapper">
+            <a class="competition-button" href="/competitions/<%=competition.competition_id%>" title="Upravljanje natjecanjem">Upravljanje</a>
+            <h2>Poredak</h2>
             <table>
                 <tr class="heading">
                     <th class="bottom-border right-border">Pozicija</th>
@@ -20,14 +22,14 @@
                     <th class="bottom-border">Bodovi</th>
                 </tr>
                 <% for(let i = 0; i < competitors.length; i++) { %>
-                <tr <% if(i % 2 ==0) { %>class="even"<% } %>>
+                <tr <% if(i % 2 == 1) { %>class="odd"<% } %>>
                     <td <% if(i < competitors.length - 1) { %>
                         class="bottom-border right-border"<% } else {
                         %>class="right-border"<% } %>><%=i + 1%>.
                     </td>
                     <td <% if(i < competitors.length - 1) { %>
                         class="bottom-border right-border"<% } else {
-                        %>class="right-border"<% } %>> <%=
+                        %>class="right-border"<% } %>><%=
                         competitors[i].competitor_name %>
                     </td>
                     <td <% if(i < competitors.length - 1) { %>

@@ -19,7 +19,7 @@
 }
 .text-container > h2 {
     margin: 0;
-    font-size: 4rem;
+    font-size: 3rem;
     font-weight: 900;
 }
 .text-container > p {
@@ -27,6 +27,21 @@
     font-size: 1.2rem;
     font-weight: 300;
     color: #4e4e4e;
+}
+.text-container > p > a {
+    color: black;
+    transition: all 0.2s ease;
+}
+.text-container > p > a:hover {
+    opacity: 0.6;
+}
+@media screen and (max-width: 990px) {
+    .image-container {
+        flex-wrap: wrap;
+    }
+    img {
+        flex-basis: 100%;
+    }
 }
 
 .form-wrapper {

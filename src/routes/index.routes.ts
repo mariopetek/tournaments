@@ -28,7 +28,7 @@ router.post('/', requiresAuth(), async (req, res) => {
     if (competitorsArr.length == 1) {
         competitorsArr = competitors.split('\n')
     }
-
+    competitorsArr = competitorsArr.map(c => c.trim())
     if (!isValid(competitionName, competitorsArr)) {
         res.render('index', {
             ...responseObj,
