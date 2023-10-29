@@ -13,7 +13,7 @@
         <%- include('./partials/header.ejs') %>
         <h1><%= competition.competition_name %></h1>
         <div class="wrapper">
-            <a target="_blank" class="public-url" href="/public/competitions/<%=competition.competition_id%>">https://localhost:3000/public/competitions/<%=competition.competition_id%></a>
+            <a target="_blank" class="public-url" href="/public/competitions/<%=competition.competition_id%>"><%=publicUrl%>/public/competitions/<%=competition.competition_id%></a>
             <p class="scoring-system">Sustav bodovanja: <%=competition.scoring_system%></p>
             <a class="result-button" href="/competitions/leaderboard/<%=competition.competition_id%>" title="Poredak na natjecanju">Poredak</a>
             <% for(const [key, round] of rounds.entries()) { %>

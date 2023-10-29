@@ -13,7 +13,7 @@
         <%- include('./partials/header.ejs') %>
         <h1><%= competition.competition_name %></h1>
         <div class="wrapper">
-            <a target="_blank" class="public-url" href="/public/competitions/leaderboard/<%=competition.competition_id%>">https://localhost:3000/public/competitions/leaderboard/<%=competition.competition_id%></a>
+            <a target="_blank" class="public-url" href="/public/competitions/leaderboard/<%=competition.competition_id%>"><%=publicUrl%>/public/competitions/leaderboard/<%=competition.competition_id%></a>
             <a class="competition-button" href="/competitions/<%=competition.competition_id%>" title="Upravljanje natjecanjem">Upravljanje</a>
             <h2>Poredak</h2>
             <table>

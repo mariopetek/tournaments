@@ -1,7 +1,10 @@
 import express from 'express'
 import { requiresAuth } from 'express-openid-connect'
+import dotenv from 'dotenv'
 
 import db from '../db'
+
+dotenv.config()
 
 const router = express.Router()
 
@@ -81,7 +84,8 @@ router.get('/:competitionId', requiresAuth(), async (req, res) => {
             user: req.oidc.user,
             competition,
             rounds,
-            winners
+            winners,
+            publicUrl: process.env.PUBLIC_URL
         })
     } catch (err) {
         res.sendStatus(400)
@@ -110,7 +114,8 @@ router.get('/leaderboard/:competitionId', requiresAuth(), async (req, res) => {
             title: competition.competition_name + ' | Poredak',
             user: req.oidc.user,
             competition,
-            competitors
+            competitors,
+            publicUrl: process.env.PUBLIC_URL
         })
     } catch (err) {
         res.sendStatus(400)
