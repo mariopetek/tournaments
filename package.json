@@ -4,9 +4,10 @@
     "description": "",
     "scripts": {
         "dev": "nodemon src/app.ts",
-        "build": "npm run clean; tsc; npm run copy-views; npm run copy-views",
+        "build": "npm run clean; tsc; npm run copy-views; npm run copy-public;",
         "clean": "rm -rf dist",
         "copy-views": "cp -r src/views/ dist/views/",
+        "copy-public": "cp -r src/public dist/public/",
         "start": "node dist/app.js"
     },
     "keywords": [],
