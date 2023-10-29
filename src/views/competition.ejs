@@ -24,7 +24,7 @@
                     <% if(winners.get(key)[i] !== null) { %>
                         <p class="description">Odigrano</p>
                     <% } else { %>
-                        <p class="description">Odaberite pobjednika</p>
+                        <p class="description">Odaberi pobjednika</p>
                     <% } %>
                     <form action="/competitions/<%=competition.competition_id%>/<%=round[i][0].competitor_id%>_<%=round[i][1].competitor_id%>" method="post">
                         <div>
