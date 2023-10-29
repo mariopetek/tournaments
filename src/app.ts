@@ -15,7 +15,7 @@ const app = express()
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'assets')))
 app.use(express.urlencoded({ extended: true }))
 
 const externalUrl = process.env.RENDER_EXTERNAL_URL
@@ -44,7 +44,7 @@ if (externalUrl) {
     const hostname = '0.0.0.0'
     app.listen(port, hostname, () =>
         console.log(
-            `Server locally running at http://${hostname};${port}/ and from outside on ${externalUrl}`
+            `Application locally running at http://${hostname};${port}/ and from outside on ${externalUrl}`
         )
     )
 } else {

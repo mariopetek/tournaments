@@ -95,7 +95,6 @@ router.post('/', requiresAuth(), async (req, res) => {
             }
         }
     } catch (err) {
-        console.log(err)
         res.render('index', {
             ...responseObj,
             user: req.oidc.user,

@@ -16,7 +16,6 @@ router.get('/', requiresAuth(), async (req, res) => {
                 `select * from competition where user_id = '${req.oidc.user?.sub}' order by created_at desc`
             )
         ).rows
-        console.log(competitions)
 
         res.render('competitions', {
             ...responseObj,
