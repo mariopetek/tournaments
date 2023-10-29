@@ -18,13 +18,14 @@ app.set('view engine', 'ejs')
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: true }))
 
-const port = 3000
+const externalUrl = process.env.RENDER_EXTERNAL_URL
+const port = externalUrl && process.env.PORT ? parseInt(process.env.PORT) : 3000
 
 const config = {
     authRequired: false,
     idpLogout: true,
     secret: process.env.SECRET,
-    baseURL: `https://localhost:${port}`,
+    baseURL: externalUrl || `https://localhost:${port}`,
     clientID: process.env.CLIENT_ID,
     issuerBaseURL: 'https://mariopetek-web2-lab1.eu.auth0.com',
     clientSecret: process.env.CLIENT_SECRET,
@@ -39,14 +40,23 @@ app.use('/', indexRouter)
 app.use('/competitions', competitionRouter)
 app.use('/public', publicRouter)
 
-https
-    .createServer(
-        {
-            key: fs.readFileSync('server.key'),
-            cert: fs.readFileSync('server.cert')
-        },
-        app
+if (externalUrl) {
+    const hostname = '0.0.0.0'
+    app.listen(port, hostname, () =>
+        console.log(
+            `Server locally running at http://${hostname};${port}/ and from outside on ${externalUrl}`
+        )
     )
-    .listen(port, () => {
-        console.log(`Application running at https://localhost:${port}/`)
-    })
+} else {
+    https
+        .createServer(
+            {
+                key: fs.readFileSync('server.key'),
+                cert: fs.readFileSync('server.cert')
+            },
+            app
+        )
+        .listen(port, () => {
+            console.log(`Application running at https://localhost:${port}/`)
+        })
+}

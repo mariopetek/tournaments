@@ -3,7 +3,11 @@
     "version": "1.0.0",
     "description": "",
     "scripts": {
-        "dev": "nodemon src/app.ts"
+        "dev": "nodemon src/app.ts",
+        "build": "npm run clean; tsc; npm run copy-views; npm run copy-views",
+        "clean": "rm -rf dist",
+        "copy-views": "cp -r src/views/ dist/views/",
+        "start": "node dist/app.js"
     },
     "keywords": [],
     "author": "",
