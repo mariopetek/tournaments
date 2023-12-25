@@ -1,0 +1,22 @@
+.header {
+    background-color: var(--neutral-50);
+    padding: 0.5rem;
+    outline: 1px solid var(--neutral-400);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.gitHubLink {
+    height: 35px;
+}
+.gitHubLogo {
+    height: 100%;
+    width: 100%;
+}
+.gitHubLogo > path {
+    fill: var(--neutral-700);
+    transition: all 0.2s ease-in-out;
+}
+.gitHubLogo:hover > path {
+    fill: var(--neutral-600);
+}
