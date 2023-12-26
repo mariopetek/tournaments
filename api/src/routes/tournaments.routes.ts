@@ -7,25 +7,38 @@ const router = express.Router()
     POST /api/tournaments/:userId - Create a new tournament of a user
 */
 router
-    .route('/:userId')
+    .route('/')
     .get((req, res) => {
+        const userId = req.auth?.payload.sub
+        console.log(userId)
         return res.json({})
     })
     .post((req, res) => {
+        /*
+        const userId = req.auth?.payload.sub
+        */
         return res.json({})
     })
 
 /*
     GET /api/tournaments/:userId/:tournamentId - Get a single tournament of a user
 */
-router.get('/:userId/:tournamentId', (req, res) => {
+router.get('/:tournamentId', (req, res) => {
+    /*
+    const userId = req.auth?.payload.sub
+    const tournamentId = req.params.tournamentId
+    */
     return res.json({})
 })
 
 /*
     GET /api/tournaments/:userId/:tournamentId/leaderboard - Get the leaderboard for a tournament of a user
 */
-router.get('/:userId/:tournamentId/leaderboard', (req, res) => {
+router.get('/:tournamentId/leaderboard', (req, res) => {
+    /*
+    const userId = req.auth?.payload.sub
+    const tournamentId = req.params.tournamentId
+    */
     return res.json({})
 })
 

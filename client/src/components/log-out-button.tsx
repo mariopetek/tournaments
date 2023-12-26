@@ -1,6 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react'
 
-export default function SignOutButton() {
+export default function LogOutButton() {
     const { logout } = useAuth0()
     return (
         <button
@@ -8,7 +8,7 @@ export default function SignOutButton() {
                 logout({ logoutParams: { returnTo: window.location.origin } })
             }
         >
-            Sign Out
+            Log out
         </button>
     )
 }

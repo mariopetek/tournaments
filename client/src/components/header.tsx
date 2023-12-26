@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
-import SignInButton from './sign-in-button'
-import SignOutButton from './sign-out-button'
+import LogInButton from './log-in-button'
+import LogOutButton from './log-out-button'
 import { useAuth0 } from '@auth0/auth0-react'
 import styles from './styles/header.module.css'
 
@@ -21,12 +21,12 @@ export default function Header() {
                                 src={user.picture}
                                 alt="User profile picture"
                             />
-                            <SignOutButton />
+                            <LogOutButton />
                         </div>
                     </>
                 ) : (
                     <>
-                        <SignInButton />
+                        <LogInButton />
                         <a
                             className={styles.gitHubLink}
                             href="https://github.com/mariopetek/web2-lab1"

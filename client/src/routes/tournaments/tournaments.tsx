@@ -1,24 +1,26 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { useEffect } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
 
 export default function Tournaments() {
-    const { getAccessTokenSilently, user } = useAuth0()
-    useEffect(() => {
-        async function fetchTournaments() {
-            const response = await fetch(
-                `${import.meta.env.VITE_API_SERVER_URL}/api/tournaments/${
-                    user?.sub
-                }`,
+    const { getAccessTokenSilently } = useAuth0()
+    const { isPending, error, data } = useQuery({
+        queryKey: ['tournaments'],
+        queryFn: async () => {
+            const accessToken = await getAccessTokenSilently()
+            const response = await axios.get(
+                `${import.meta.env.VITE_API_SERVER_URL}/api/tournaments`,
                 {
                     headers: {
-                        Authorization: `Bearer ${await getAccessTokenSilently()}`
+                        Authorization: `Bearer ${accessToken}`
                     }
                 }
             )
-            const data = await response.json()
-            console.log(data)
+            return response.data
         }
-        fetchTournaments()
-    }, [getAccessTokenSilently, user?.sub])
-    return <div>Tournaments</div>
+    })
+
+    if (isPending) return <div>Loading...</div>
+    if (error) return 'An error has occurred: ' + error.message
+    return <div>{JSON.stringify(data)}</div>
 }
