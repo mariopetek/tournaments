@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tournament {
+  tournamentId    String        @id @default(uuid()) @db.Uuid
+  tournamentName  String        @db.VarChar(255)
+  createdAt       DateTime      @default(now()) @db.Timestamptz(6)
+  userId          String
+  scoringSystem   ScoringSystem @relation(fields: [scoringSystemId], references: [scoringSystemId])
+  scoringSystemId String        @unique @db.Uuid
+  competitors     Competitor[]
+}
+
+model ScoringSystem {
+  scoringSystemId String      @id @default(uuid()) @db.Uuid
+  winPoints       Int         @default(3) @db.SmallInt
+  drawPoints      Int         @default(1) @db.SmallInt
+  lossPoints      Int         @default(0) @db.SmallInt
+  tournament      Tournament?
+}
+
+model Competitor {
+  competitorId   String     @id @default(uuid()) @db.Uuid
+  competitorName String     @db.VarChar(255)
+  points         Int        @default(0) @db.Integer
+  tournament     Tournament @relation(fields: [tournamentId], references: [tournamentId])
+  tournamentId   String     @db.Uuid
+}
