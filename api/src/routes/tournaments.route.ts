@@ -1,4 +1,5 @@
 import express from 'express'
+import validateTournaments from '../middlewares/validate.middleware'
 import {
     createTournamentHandler,
     deleteTournamentHandler,
@@ -7,7 +8,6 @@ import {
     getTournamentsHandler,
     updateTournamentHandler
 } from '../controllers/tournaments.controller'
-import validateTournaments from '../middlewares/validate.middleware'
 import {
     createTournamentSchema,
     deleteTournamentSchema,
@@ -19,8 +19,8 @@ import {
 const router = express.Router()
 
 /*
-    GET /api/tournaments/:userId - Get all tournaments of a user
-    POST /api/tournaments/:userId - Create a new tournament of a user
+    GET /api/tournaments - Get all tournaments of a user
+    POST /api/tournaments - Create a new tournament of a user
 */
 router
     .route('/')
@@ -28,9 +28,9 @@ router
     .post(validateTournaments(createTournamentSchema), createTournamentHandler)
 
 /*
-    GET /api/tournaments/:userId/:tournamentId - Get a single tournament of a user
-    PUT /api/tournaments/:userId/:tournamentId - Update a single tournament of a user
-    DELETE /api/tournaments/:userId/:tournamentId - Delete a single tournament of a user
+    GET /api/tournaments/:tournamentId - Get a single tournament of a user
+    PUT /api/tournaments/:tournamentId - Update a single tournament of a user
+    DELETE /api/tournaments/:tournamentId - Delete a single tournament of a user
 */
 router
     .route('/:tournamentId')
@@ -42,7 +42,7 @@ router
     )
 
 /*
-    GET /api/tournaments/:userId/:tournamentId/leaderboard - Get the leaderboard for a tournament of a user
+    GET /api/tournaments/:tournamentId/leaderboard - Get the leaderboard for a tournament of a user
 */
 router.get(
     '/:tournamentId/leaderboard',
