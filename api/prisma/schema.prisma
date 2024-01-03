@@ -45,7 +45,7 @@ model Match {
   opponent     Competitor @relation("opponent", fields: [opponentId], references: [competitorId])
   opponentId   String     @db.Uuid
   playedAt     DateTime?  @db.Timestamptz(6)
-  result       Result
+  result       Result?
   round        Int        @db.SmallInt
 
   @@id([competitorId, opponentId])
