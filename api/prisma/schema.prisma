@@ -12,7 +12,8 @@ datasource db {
 
 model Tournament {
   tournamentId    String        @id @default(uuid()) @db.Uuid
-  tournamentName  String        @db.VarChar(255)
+  tournamentName  String        @db.VarChar(50)
+  tournamentDesc  String        @db.VarChar(200)
   createdAt       DateTime      @default(now()) @db.Timestamptz(6)
   userId          String
   scoringSystem   ScoringSystem @relation(fields: [scoringSystemId], references: [scoringSystemId])
@@ -29,9 +30,29 @@ model ScoringSystem {
 }
 
 model Competitor {
-  competitorId   String     @id @default(uuid()) @db.Uuid
-  competitorName String     @db.VarChar(255)
-  points         Int        @default(0) @db.Integer
-  tournament     Tournament @relation(fields: [tournamentId], references: [tournamentId])
-  tournamentId   String     @db.Uuid
+  competitorId      String     @id @default(uuid()) @db.Uuid
+  competitorName    String     @db.VarChar(50)
+  points            Int        @default(0) @db.SmallInt
+  tournament        Tournament @relation(fields: [tournamentId], references: [tournamentId])
+  tournamentId      String     @db.Uuid
+  competitorMatches Match[]    @relation("opponent")
+  opponentMatches   Match[]    @relation("competitor")
+}
+
+model Match {
+  competitor   Competitor @relation("competitor", fields: [competitorId], references: [competitorId])
+  competitorId String     @db.Uuid
+  opponent     Competitor @relation("opponent", fields: [opponentId], references: [competitorId])
+  opponentId   String     @db.Uuid
+  playedAt     DateTime?  @db.Timestamptz(6)
+  result       Result
+  round        Int        @db.SmallInt
+
+  @@id([competitorId, opponentId])
+}
+
+enum Result {
+  W
+  D
+  L
 }

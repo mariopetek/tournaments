@@ -7,6 +7,14 @@ import {
     getTournamentsHandler,
     updateTournamentHandler
 } from '../controllers/tournaments.controller'
+import validateTournaments from '../middlewares/validate.middleware'
+import {
+    createTournamentSchema,
+    deleteTournamentSchema,
+    getTournamentLeaderboardSchema,
+    getTournamentSchema,
+    updateTournamentSchema
+} from '../schemas/tournaments.schema'
 
 const router = express.Router()
 
@@ -14,7 +22,10 @@ const router = express.Router()
     GET /api/tournaments/:userId - Get all tournaments of a user
     POST /api/tournaments/:userId - Create a new tournament of a user
 */
-router.route('/').get(getTournamentsHandler).post(createTournamentHandler)
+router
+    .route('/')
+    .get(getTournamentsHandler)
+    .post(validateTournaments(createTournamentSchema), createTournamentHandler)
 
 /*
     GET /api/tournaments/:userId/:tournamentId - Get a single tournament of a user
@@ -23,13 +34,20 @@ router.route('/').get(getTournamentsHandler).post(createTournamentHandler)
 */
 router
     .route('/:tournamentId')
-    .get(getTournamentHandler)
-    .put(updateTournamentHandler)
-    .delete(deleteTournamentHandler)
+    .get(validateTournaments(getTournamentSchema), getTournamentHandler)
+    .put(validateTournaments(updateTournamentSchema), updateTournamentHandler)
+    .delete(
+        validateTournaments(deleteTournamentSchema),
+        deleteTournamentHandler
+    )
 
 /*
     GET /api/tournaments/:userId/:tournamentId/leaderboard - Get the leaderboard for a tournament of a user
 */
-router.get('/:tournamentId/leaderboard', getLeaderboardHandler)
+router.get(
+    '/:tournamentId/leaderboard',
+    validateTournaments(getTournamentLeaderboardSchema),
+    getLeaderboardHandler
+)
 
 export default router
