@@ -15,6 +15,7 @@ import {
     getTournamentSchema,
     updateTournamentSchema
 } from '../schemas/tournaments.schema'
+import tryCatch from '../utils/try-catch'
 
 const router = express.Router()
 
@@ -24,8 +25,11 @@ const router = express.Router()
 */
 router
     .route('/')
-    .get(getTournamentsHandler)
-    .post(validateTournaments(createTournamentSchema), createTournamentHandler)
+    .get(tryCatch(getTournamentsHandler))
+    .post(
+        validateTournaments(createTournamentSchema),
+        tryCatch(createTournamentHandler)
+    )
 
 /*
     GET /api/tournaments/:tournamentId - Get a single tournament of a user

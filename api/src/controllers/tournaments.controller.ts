@@ -8,30 +8,30 @@ import {
     updateTournament
 } from '../services/tournaments.service'
 import type {
-    CreateTournamentRequest,
-    GetTournamentRequest,
-    UpdateTournamentRequest,
-    DeleteTournamentRequest,
-    GetTournamentLeaderboardRequest
+    CreateTournamentData,
+    GetTournamentData,
+    UpdateTournamentData,
+    DeleteTournamentData,
+    GetTournamentLeaderboardData
 } from '../schemas/tournaments.schema'
 
 export async function getTournamentsHandler(req: Request, res: Response) {
-    const userId = req.auth?.payload.sub
+    const userId = req.auth?.payload.sub!
     const tournaments = await getTournaments(userId)
     return res.json(tournaments)
 }
 
 export async function createTournamentHandler(
-    req: Request<{}, {}, CreateTournamentRequest['body']>,
+    req: Request<{}, {}, CreateTournamentData['body']>,
     res: Response
 ) {
-    const userId = req.auth?.payload.sub
-    const tournament = await createTournament(userId)
+    const userId = req.auth?.payload.sub!
+    const tournament = await createTournament(userId, req.body)
     return res.json(tournament)
 }
 
 export async function getTournamentHandler(
-    req: Request<GetTournamentRequest['params']>,
+    req: Request<GetTournamentData['params']>,
     res: Response
 ) {
     const userId = req.auth?.payload.sub
@@ -42,9 +42,9 @@ export async function getTournamentHandler(
 
 export async function updateTournamentHandler(
     req: Request<
-        UpdateTournamentRequest['params'],
+        UpdateTournamentData['params'],
         {},
-        UpdateTournamentRequest['body']
+        UpdateTournamentData['body']
     >,
     res: Response
 ) {
@@ -55,7 +55,7 @@ export async function updateTournamentHandler(
 }
 
 export async function deleteTournamentHandler(
-    req: Request<DeleteTournamentRequest['params']>,
+    req: Request<DeleteTournamentData['params']>,
     res: Response
 ) {
     const userId = req.auth?.payload.sub
@@ -65,7 +65,7 @@ export async function deleteTournamentHandler(
 }
 
 export async function getLeaderboardHandler(
-    req: Request<GetTournamentLeaderboardRequest['params']>,
+    req: Request<GetTournamentLeaderboardData['params']>,
     res: Response
 ) {
     const userId = req.auth?.payload.sub

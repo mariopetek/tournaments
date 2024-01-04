@@ -1,21 +1,21 @@
 import { z } from 'zod'
 
 const body = z.object({
-    name: z
+    tournamentName: z
         .string({
-            required_error: 'Title is required',
-            invalid_type_error: 'Title must be a string'
+            required_error: 'Name is required',
+            invalid_type_error: 'Name must be a string'
         })
         .min(1, {
-            message: 'Title must be at least 1 character long'
+            message: 'Name must be at least 1 character long'
         })
         .max(50, {
-            message: 'Title must be at most 50 characters long'
+            message: 'Name must be at most 50 characters long'
         }),
-    description: z
+    tournamentDesc: z
         .string({
             required_error: 'Description is required',
-            invalid_type_error: 'Description must be a string'
+            invalid_type_error: 'Description description must be a string'
         })
         .min(1, {
             message: 'Description must be at least 1 character long'
@@ -114,10 +114,10 @@ export const deleteTournamentSchema = z.object({
 })
 export const getTournamentLeaderboardSchema = z.object({ params })
 
-export type CreateTournamentRequest = z.TypeOf<typeof createTournamentSchema>
-export type GetTournamentRequest = z.TypeOf<typeof getTournamentSchema>
-export type UpdateTournamentRequest = z.TypeOf<typeof updateTournamentSchema>
-export type DeleteTournamentRequest = z.TypeOf<typeof deleteTournamentSchema>
-export type GetTournamentLeaderboardRequest = z.TypeOf<
+export type CreateTournamentData = z.TypeOf<typeof createTournamentSchema>
+export type GetTournamentData = z.TypeOf<typeof getTournamentSchema>
+export type UpdateTournamentData = z.TypeOf<typeof updateTournamentSchema>
+export type DeleteTournamentData = z.TypeOf<typeof deleteTournamentSchema>
+export type GetTournamentLeaderboardData = z.TypeOf<
     typeof getTournamentLeaderboardSchema
 >

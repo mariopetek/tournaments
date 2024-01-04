@@ -37,6 +37,8 @@ model Competitor {
   tournamentId      String     @db.Uuid
   competitorMatches Match[]    @relation("opponent")
   opponentMatches   Match[]    @relation("competitor")
+
+  @@unique([competitorName, tournamentId])
 }
 
 model Match {
