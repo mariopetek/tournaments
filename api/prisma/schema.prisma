@@ -11,46 +11,59 @@ datasource db {
 }
 
 model Tournament {
-  tournamentId    String        @id @default(uuid()) @db.Uuid
-  tournamentName  String        @db.VarChar(50)
-  tournamentDesc  String        @db.VarChar(200)
-  createdAt       DateTime      @default(now()) @db.Timestamptz(6)
-  userId          String
-  scoringSystem   ScoringSystem @relation(fields: [scoringSystemId], references: [scoringSystemId])
-  scoringSystemId String        @unique @db.Uuid
-  competitors     Competitor[]
+  tournamentId    String   @id @default(uuid()) @map("tournament_id") @db.Uuid
+  tournamentName  String   @map("tournament_name") @db.VarChar(50)
+  tournamentDesc  String   @map("tournament_desc") @db.VarChar(200)
+  createdAt       DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  userId          String   @map("user_id")
+  scoringSystemId String   @unique @map("scoring_system_id") @db.Uuid
+
+  scoringSystem ScoringSystem @relation(fields: [scoringSystemId], references: [scoringSystemId])
+  competitors   Competitor[]
+  matches       Match[]
+
+  @@map("tournaments")
 }
 
 model ScoringSystem {
-  scoringSystemId String      @id @default(uuid()) @db.Uuid
-  winPoints       Int         @default(3) @db.SmallInt
-  drawPoints      Int         @default(1) @db.SmallInt
-  lossPoints      Int         @default(0) @db.SmallInt
-  tournament      Tournament?
+  scoringSystemId String @id @default(uuid()) @map("scoring_system_id") @db.Uuid
+  winPoints       Int    @default(3) @map("win_points") @db.SmallInt
+  drawPoints      Int    @default(1) @map("draw_points") @db.SmallInt
+  lossPoints      Int    @default(0) @map("loss_points") @db.SmallInt
+
+  tournament Tournament?
+
+  @@map("scoring_systems")
 }
 
 model Competitor {
-  competitorId      String     @id @default(uuid()) @db.Uuid
-  competitorName    String     @db.VarChar(50)
-  points            Int        @default(0) @db.SmallInt
-  tournament        Tournament @relation(fields: [tournamentId], references: [tournamentId])
-  tournamentId      String     @db.Uuid
-  competitorMatches Match[]    @relation("opponent")
-  opponentMatches   Match[]    @relation("competitor")
+  competitorId   String @id @default(uuid()) @map("competitor_id") @db.Uuid
+  competitorName String @map("competitor_name") @db.VarChar(50)
+  points         Int    @default(0) @map("points") @db.SmallInt
+  tournamentId   String @map("tournament_id") @db.Uuid
+
+  tournament          Tournament @relation(fields: [tournamentId], references: [tournamentId])
+  matchesAsCompetitor Match[]    @relation("opponent")
+  matchesAsOpponent   Match[]    @relation("competitor")
 
   @@unique([competitorName, tournamentId])
+  @@map("competitors")
 }
 
 model Match {
-  competitor   Competitor @relation("competitor", fields: [competitorId], references: [competitorId])
-  competitorId String     @db.Uuid
-  opponent     Competitor @relation("opponent", fields: [opponentId], references: [competitorId])
-  opponentId   String     @db.Uuid
-  playedAt     DateTime?  @db.Timestamptz(6)
-  result       Result?
-  round        Int        @db.SmallInt
+  tournamentId String    @map("tournament_id") @db.Uuid
+  competitorId String    @map("competitor_id") @db.Uuid
+  opponentId   String    @map("opponent_id") @db.Uuid
+  playedAt     DateTime? @map("played_at") @db.Timestamptz(6)
+  result       Result?   @map("result")
+  round        Int       @map("round") @db.SmallInt
+
+  tournament Tournament @relation(fields: [tournamentId], references: [tournamentId])
+  competitor Competitor @relation("competitor", fields: [competitorId], references: [competitorId])
+  opponent   Competitor @relation("opponent", fields: [opponentId], references: [competitorId])
 
   @@id([competitorId, opponentId])
+  @@map("matches")
 }
 
 enum Result {

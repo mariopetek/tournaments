@@ -1,75 +1,72 @@
-import { Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import {
     createTournament,
     deleteTournament,
-    getLeaderboard,
     getTournament,
-    getTournaments,
-    updateTournament
+    getTournaments
 } from '../services/tournaments.service'
 import type {
     CreateTournamentData,
     GetTournamentData,
-    UpdateTournamentData,
-    DeleteTournamentData,
-    GetTournamentLeaderboardData
+    DeleteTournamentData
 } from '../schemas/tournaments.schema'
 
-export async function getTournamentsHandler(req: Request, res: Response) {
+export async function getTournamentsHandler(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) {
     const userId = req.auth?.payload.sub!
-    const tournaments = await getTournaments(userId)
-    return res.json(tournaments)
+    try {
+        const tournaments = await getTournaments(userId)
+        return res.json(tournaments)
+    } catch (err) {
+        return next(err)
+    }
 }
 
 export async function createTournamentHandler(
     req: Request<{}, {}, CreateTournamentData['body']>,
-    res: Response
+    res: Response,
+    next: NextFunction
 ) {
     const userId = req.auth?.payload.sub!
-    const tournament = await createTournament(userId, req.body)
-    return res.json(tournament)
+    try {
+        const tournament = await createTournament(userId, req.body)
+        return res.json(tournament)
+    } catch (err) {
+        return next(err)
+    }
 }
 
 export async function getTournamentHandler(
     req: Request<GetTournamentData['params']>,
-    res: Response
+    res: Response,
+    next: NextFunction
 ) {
-    const userId = req.auth?.payload.sub
+    const userId = req.auth?.payload.sub!
     const tournamentId = req.params.tournamentId
-    const tournament = await getTournament(userId, tournamentId)
-    return res.json(tournament)
-}
-
-export async function updateTournamentHandler(
-    req: Request<
-        UpdateTournamentData['params'],
-        {},
-        UpdateTournamentData['body']
-    >,
-    res: Response
-) {
-    const userId = req.auth?.payload.sub
-    const tournamentId = req.params.tournamentId
-    const tournament = await updateTournament(userId, tournamentId)
-    return res.json(tournament)
+    try {
+        const tournament = await getTournament(userId, tournamentId)
+        return res.json(tournament)
+    } catch (err) {
+        return next(err)
+    }
 }
 
 export async function deleteTournamentHandler(
     req: Request<DeleteTournamentData['params']>,
-    res: Response
+    res: Response,
+    next: NextFunction
 ) {
-    const userId = req.auth?.payload.sub
+    const userId = req.auth?.payload.sub!
     const tournamentId = req.params.tournamentId
-    await deleteTournament(userId, tournamentId)
-    return res.json({})
-}
-
-export async function getLeaderboardHandler(
-    req: Request<GetTournamentLeaderboardData['params']>,
-    res: Response
-) {
-    const userId = req.auth?.payload.sub
-    const tournamentId = req.params.tournamentId
-    const leaderboard = await getLeaderboard(userId, tournamentId)
-    return res.json(leaderboard)
+    try {
+        await deleteTournament(userId, tournamentId)
+        return res
+            .status(200)
+            .json({ message: 'Successfully deleted tournament' })
+    } catch (err) {
+        return next(err)
+    }
 }

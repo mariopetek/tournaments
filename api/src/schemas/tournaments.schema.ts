@@ -105,19 +105,10 @@ export const createTournamentSchema = z.object({
 export const getTournamentSchema = z.object({
     params
 })
-export const updateTournamentSchema = z.object({
-    body,
-    params
-})
 export const deleteTournamentSchema = z.object({
     params
 })
-export const getTournamentLeaderboardSchema = z.object({ params })
 
 export type CreateTournamentData = z.TypeOf<typeof createTournamentSchema>
 export type GetTournamentData = z.TypeOf<typeof getTournamentSchema>
-export type UpdateTournamentData = z.TypeOf<typeof updateTournamentSchema>
 export type DeleteTournamentData = z.TypeOf<typeof deleteTournamentSchema>
-export type GetTournamentLeaderboardData = z.TypeOf<
-    typeof getTournamentLeaderboardSchema
->
