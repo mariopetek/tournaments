@@ -15,7 +15,9 @@ const tournamentSelection = Prisma.validator<Prisma.TournamentSelect>()({
         select: {
             competitorId: true,
             competitorName: true,
-            points: true
+            wins: true,
+            draws: true,
+            losses: true
         }
     },
     matches: {

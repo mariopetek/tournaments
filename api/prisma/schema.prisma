@@ -23,6 +23,7 @@ model Tournament {
   matches       Match[]
 
   @@unique([tournamentName, userId])
+  @@index([tournamentId])
   @@map("tournaments")
 }
 
@@ -34,20 +35,26 @@ model ScoringSystem {
 
   tournament Tournament?
 
+  @@index([scoringSystemId])
   @@map("scoring_systems")
 }
 
 model Competitor {
   competitorId   String @id @default(uuid()) @map("competitor_id") @db.Uuid
   competitorName String @map("competitor_name") @db.VarChar(50)
-  points         Int    @default(0) @map("points") @db.SmallInt
+  wins           Int    @default(0) @map("wins") @db.SmallInt
+  draws          Int    @default(0) @map("draws") @db.SmallInt
+  losses         Int    @default(0) @map("losses") @db.SmallInt
   tournamentId   String @map("tournament_id") @db.Uuid
 
   tournament          Tournament @relation(fields: [tournamentId], references: [tournamentId])
+  // Test if matchesAsCompetitor and matchesAsOpponent are correct
   matchesAsCompetitor Match[]    @relation("opponent")
   matchesAsOpponent   Match[]    @relation("competitor")
 
   @@unique([competitorName, tournamentId])
+  @@index([competitorId])
+  @@index([tournamentId])
   @@map("competitors")
 }
 
@@ -65,6 +72,8 @@ model Match {
   opponent   Competitor? @relation("opponent", fields: [opponentId], references: [competitorId])
 
   @@unique([tournamentId, competitorId, round])
+  @@index([matchId])
+  @@index([tournamentId])
   @@map("matches")
 }
 
