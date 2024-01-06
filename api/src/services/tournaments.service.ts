@@ -2,30 +2,49 @@ import { CreateTournamentData } from '../schemas/tournaments.schema'
 import prisma from '../utils/prisma-client'
 import { ForbiddenError } from '../utils/forbidden-error'
 import roundsForCompetitors from '../utils/rounds-for-competitors'
+import { Prisma } from '@prisma/client'
+
+const tournamentSelection = Prisma.validator<Prisma.TournamentSelect>()({
+    tournamentId: true,
+    tournamentName: true,
+    tournamentDesc: true,
+    createdAt: true,
+    userId: true,
+    scoringSystem: true,
+    competitors: {
+        select: {
+            competitorId: true,
+            competitorName: true,
+            points: true
+        }
+    },
+    matches: {
+        select: {
+            competitor: true,
+            opponent: true,
+            playedAt: true,
+            result: true,
+            round: true
+        }
+    }
+})
 
 export async function getTournaments(userId: string) {
     const tournaments = await prisma.tournament.findMany({
-        select: {
-            tournamentId: true,
-            tournamentName: true,
-            tournamentDesc: true,
-            createdAt: true,
-            userId: true,
-            scoringSystem: true
-        },
         where: {
             userId
-        }
+        },
+        select: tournamentSelection
     })
     return tournaments
 }
 
 export async function createTournament(
     userId: string,
-    data: CreateTournamentData['body']
+    createTournamentBody: CreateTournamentData['body']
 ) {
     const { tournamentName, tournamentDesc, scoringSystem, competitorsNames } =
-        data
+        createTournamentBody
     const { winPoints, drawPoints, lossPoints } = scoringSystem
 
     const createdTournament = await prisma.$transaction(async tx => {
@@ -62,7 +81,10 @@ export async function createTournament(
             await tx.match.createMany({
                 data: rounds[round - 1].map(match => ({
                     competitorId: competitors[match[0]].competitorId,
-                    opponentId: competitors[match[1]].competitorId,
+                    opponentId:
+                        match[1] === -1
+                            ? null
+                            : competitors[match[1]].competitorId,
                     round,
                     tournamentId
                 }))
@@ -72,30 +94,7 @@ export async function createTournament(
             where: {
                 tournamentId
             },
-            select: {
-                tournamentId: true,
-                tournamentName: true,
-                tournamentDesc: true,
-                createdAt: true,
-                userId: true,
-                scoringSystem: true,
-                competitors: {
-                    select: {
-                        competitorId: true,
-                        competitorName: true,
-                        points: true
-                    }
-                },
-                matches: {
-                    select: {
-                        competitor: true,
-                        opponent: true,
-                        playedAt: true,
-                        result: true,
-                        round: true
-                    }
-                }
-            }
+            select: tournamentSelection
         })
     })
     return createdTournament
@@ -106,30 +105,7 @@ export async function getTournament(userId: string, tournamentId: string) {
         where: {
             tournamentId
         },
-        select: {
-            tournamentId: true,
-            tournamentName: true,
-            tournamentDesc: true,
-            createdAt: true,
-            userId: true,
-            scoringSystem: true,
-            competitors: {
-                select: {
-                    competitorId: true,
-                    competitorName: true,
-                    points: true
-                }
-            },
-            matches: {
-                select: {
-                    competitor: true,
-                    opponent: true,
-                    playedAt: true,
-                    result: true,
-                    round: true
-                }
-            }
-        }
+        select: tournamentSelection
     })
 
     if (tournament.userId !== userId) {
@@ -140,13 +116,18 @@ export async function getTournament(userId: string, tournamentId: string) {
 }
 
 export async function deleteTournament(userId: string, tournamentId: string) {
-    const tournament = await prisma.tournament.findUniqueOrThrow({
-        where: {
-            tournamentId
-        }
-    })
+    const { userId: tournamentUserId, scoringSystemId } =
+        await prisma.tournament.findUniqueOrThrow({
+            where: {
+                tournamentId
+            },
+            select: {
+                userId: true,
+                scoringSystemId: true
+            }
+        })
 
-    if (tournament.userId !== userId) {
+    if (tournamentUserId !== userId) {
         throw new ForbiddenError()
     }
 
@@ -168,7 +149,7 @@ export async function deleteTournament(userId: string, tournamentId: string) {
         }),
         prisma.scoringSystem.delete({
             where: {
-                scoringSystemId: tournament.scoringSystemId
+                scoringSystemId
             }
         })
     ])

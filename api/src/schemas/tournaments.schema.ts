@@ -42,10 +42,10 @@ const body = z.object({
             }
         )
         .min(4, {
-            message: 'At least 4 competitors are required'
+            message: 'At least 4 names of competitors are required'
         })
         .max(8, {
-            message: 'At most 8 competitors are allowed'
+            message: 'At most 8 names of competitors are allowed'
         }),
     scoringSystem: z.object(
         {

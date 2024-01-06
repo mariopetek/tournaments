@@ -22,6 +22,7 @@ model Tournament {
   competitors   Competitor[]
   matches       Match[]
 
+  @@unique([tournamentName, userId])
   @@map("tournaments")
 }
 
@@ -51,18 +52,19 @@ model Competitor {
 }
 
 model Match {
+  matchId      String    @id @default(uuid()) @map("match_id") @db.Uuid
   tournamentId String    @map("tournament_id") @db.Uuid
   competitorId String    @map("competitor_id") @db.Uuid
-  opponentId   String    @map("opponent_id") @db.Uuid
+  opponentId   String?   @map("opponent_id") @db.Uuid
   playedAt     DateTime? @map("played_at") @db.Timestamptz(6)
   result       Result?   @map("result")
   round        Int       @map("round") @db.SmallInt
 
-  tournament Tournament @relation(fields: [tournamentId], references: [tournamentId])
-  competitor Competitor @relation("competitor", fields: [competitorId], references: [competitorId])
-  opponent   Competitor @relation("opponent", fields: [opponentId], references: [competitorId])
+  tournament Tournament  @relation(fields: [tournamentId], references: [tournamentId])
+  competitor Competitor  @relation("competitor", fields: [competitorId], references: [competitorId])
+  opponent   Competitor? @relation("opponent", fields: [opponentId], references: [competitorId])
 
-  @@id([competitorId, opponentId])
+  @@unique([tournamentId, competitorId, round])
   @@map("matches")
 }
 

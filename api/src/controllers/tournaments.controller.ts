@@ -63,9 +63,7 @@ export async function deleteTournamentHandler(
     const tournamentId = req.params.tournamentId
     try {
         await deleteTournament(userId, tournamentId)
-        return res
-            .status(200)
-            .json({ message: 'Successfully deleted tournament' })
+        return res.json({ message: 'Successfully deleted tournament' })
     } catch (err) {
         return next(err)
     }
