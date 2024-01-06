@@ -11,11 +11,25 @@ export default function Header() {
             <>
                 {isAuthenticated && user ? (
                     <>
-                        <div>
-                            <NavLink to="/">Home</NavLink>
-                            <NavLink to="/tournaments">Tournaments</NavLink>
+                        <div className={styles.navLinks}>
+                            <NavLink
+                                to="/"
+                                className={({ isActive }) =>
+                                    `${isActive && styles.active}`
+                                }
+                            >
+                                Home
+                            </NavLink>
+                            <NavLink
+                                to="/tournaments"
+                                className={({ isActive }) =>
+                                    `${isActive && styles.active}`
+                                }
+                            >
+                                Tournaments
+                            </NavLink>
                         </div>
-                        <div>
+                        <div className={styles.userInfo}>
                             <span>{user.name}</span>
                             <img
                                 src={user.picture}

@@ -14,9 +14,41 @@
     width: 100%;
 }
 .gitHubLogo > path {
-    fill: var(--neutral-700);
+    fill: var(--neutral-800);
     transition: all 0.2s ease-in-out;
 }
 .gitHubLogo:hover > path {
     fill: var(--neutral-600);
+}
+
+.navLinks {
+    display: flex;
+    gap: 1rem;
+}
+.navLinks > a {
+    text-decoration: none;
+    color: var(--neutral-600);
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+}
+.navLinks > a:hover {
+    color: var(--neutral-800);
+}
+.navLinks > .active {
+    color: var(--neutral-800);
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+.userInfo > img {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+}
+.userInfo > span {
+    color: var(--neutral-800);
+    font-weight: 500;
 }
