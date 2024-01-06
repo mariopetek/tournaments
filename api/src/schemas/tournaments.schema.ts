@@ -23,7 +23,7 @@ const body = z.object({
         .max(200, {
             message: 'Description must be at most 200 characters long'
         }),
-    competitors: z
+    competitorsNames: z
         .array(
             z
                 .string({
@@ -37,8 +37,8 @@ const body = z.object({
                         'Competitor name must be at most 50 characters long'
                 }),
             {
-                required_error: 'Competitors are required',
-                invalid_type_error: 'Competitors must be an array'
+                required_error: 'Names of competitors are required',
+                invalid_type_error: 'Names of competitors must be in an array'
             }
         )
         .min(4, {
