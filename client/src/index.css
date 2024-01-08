@@ -27,7 +27,7 @@
 
     --border-radius: 5px;
 }
-/*
+
 @media (prefers-color-scheme: dark) {
     :root {
         --neutral-950: #fafafa;
@@ -54,7 +54,7 @@
         --brand-100: #312e81;
         --brand-50: #1e1b4b;
     }
-}*/
+}
 * {
     font-family: 'Open Sans', sans-serif;
     box-sizing: border-box;
@@ -62,6 +62,10 @@
     padding: 0;
 }
 body {
-    min-height: 100vh;
     background-color: var(--neutral-50);
+}
+#root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }

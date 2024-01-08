@@ -1,0 +1,105 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid var(--neutral-400);
+    border-radius: var(--border-radius);
+    max-width: 800px;
+    width: 100%;
+    gap: 20px;
+    background-color: var(--neutral-100);
+}
+.form > h1 {
+    color: var(--neutral-800);
+}
+.flexContainer {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    justify-content: space-around;
+}
+.separator {
+    height: 100%;
+    background-color: var(--neutral-400);
+    width: 1px;
+}
+.tournamentInfoContainer {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap: 10px;
+    padding: 10px 0;
+}
+.competitorsContainer {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap: 10px;
+    padding: 10px 0;
+}
+.competitorsContainer > h2 {
+    color: var(--neutral-800);
+}
+.competitorInputContainer {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+.competitorInputContainer > input {
+    width: 100%;
+}
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+}
+.inputContainer > span {
+    color: var(--neutral-800);
+    font-weight: 500;
+}
+.scoringSystemContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.scoringSystemContainer > h3 {
+    color: var(--neutral-800);
+}
+.pointsInputContainer {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+.pointsInputContainer > input {
+    width: fit-content;
+}
+.pointsInputContainer > input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.pointsInputContainer > span {
+    color: var(--neutral-800);
+    font-weight: 500;
+}
+.input {
+    padding: 5px;
+    font-size: 1rem;
+    border: 1px solid var(--neutral-400);
+    border-radius: var(--border-radius);
+    background-color: var(--neutral-100);
+    color: var(--neutral-800);
+    transition: all 0.2s ease-in-out;
+}
+.input::placeholder {
+    color: var(--neutral-400);
+}
+.input:hover {
+    border: 1px solid var(--neutral-500);
+    background-color: var(--neutral-200);
+}
+.input:focus {
+    border: 1px solid var(--brand-500);
+    outline: 1px solid var(--brand-500);
+    background-color: var(--neutral-200);
+}

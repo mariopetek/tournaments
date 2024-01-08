@@ -17,8 +17,8 @@ const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
-        <BrowserRouter>
-            <QueryClientProvider client={queryClient}>
+        <QueryClientProvider client={queryClient}>
+            <BrowserRouter>
                 <Auth0ProviderWithNavigate>
                     <Routes>
                         <Route path="/" element={<App />}>
@@ -51,7 +51,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </Auth0ProviderWithNavigate>
-            </QueryClientProvider>
-        </BrowserRouter>
+            </BrowserRouter>
+        </QueryClientProvider>
     </React.StrictMode>
 )
